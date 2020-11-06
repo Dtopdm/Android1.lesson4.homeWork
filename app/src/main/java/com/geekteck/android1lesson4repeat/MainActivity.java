@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private TitleModel model;
     private String name;
     public static final String Key = "key";
+    public static final int REQUEST_CODE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +59,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("key", text.getText().toString());
+        outState.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) list);
+        Log.d(Key,"onSaveInstanceState: "+list.toString());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        text.setText(savedInstanceState.getString("key"));
+       list.addAll(savedInstanceState.getParcelableArrayList("key"));
     }
 }
